@@ -9,6 +9,8 @@ def Ping(ip):
         tx = ans[0][0]
         delta = rx.time - tx.sent_time
         ans.summary(lambda s, r: r.sprintf("%IP.src% is alive:" + str(delta * 1000)))
+        return int(delta * 1000)
     else:
         print("timeout")
+        return 0
 
