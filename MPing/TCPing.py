@@ -2,8 +2,24 @@ from scapy.layers.inet import *
 
 
 def Ping(ip, port):
-    ans, unans = sr(IP(dst=ip) / TCP(dport=port, flags="S"), timeout=5)
-    rx = ans[0][1]
-    tx = ans[0][0]
-    delta = rx.time - tx.sent_time
-    ans.summary(lambda s, r: r.sprintf("%IP.src% is alive:" + str(delta * 1000)))
+    ans, unans = sr(IP(dst=ip) / TCP(dport=port, flags="S"), timeout=2)
+
+    if len(ans) != 0:
+        rx = ans[0][1]
+        tx = ans[0][0]
+        delta = rx.time - tx.sent_time
+        # ans.summary(lambda s, r: r.sprintf("%IP.src% is alive:" + str(int(delta * 1000))))
+        return {
+            "protocol": "TCP",
+            "state": True,
+            "latency": int(delta * 1000),
+            "msg": "OK"
+        }
+    else:
+        # print("timeout")
+        return {
+            "protocol": "TCP",
+            "state": True,
+            "latency": 0,
+            "msg":"timeout"
+        }

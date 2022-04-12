@@ -1,8 +1,9 @@
-from flask import Flask
+import os
+
+from flask import Flask, jsonify
 
 import MPing.ICMPing
 import MPing.TCPing
-import os
 
 app = Flask(__name__)
 wsgi_app = app.wsgi_app
@@ -15,12 +16,12 @@ def hello_world():
 
 @app.route('/ping/icmp/<ip>')
 def ICMPing(ip):
-    return str(MPing.ICMPing.Ping(ip))
+    return jsonify(MPing.ICMPing.Ping(ip))
 
 
 @app.route('/ping/tcp/<ip>/<port>')
 def TCPing(ip, port):
-    return str(MPing.TCPing.Ping(ip, int(port)))
+    return jsonify(MPing.TCPing.Ping(ip, int(port)))
 
 
 if __name__ == '__main__':
