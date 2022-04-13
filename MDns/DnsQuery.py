@@ -1,10 +1,19 @@
 from scapy.layers.dns import *
 from scapy.layers.inet import *
 
+
 def Query(domain):
     ans = sr1(IP(dst="8.8.8.8") / UDP(dport=53) /
-                   DNS(rd=1, qd=DNSQR(qname=domain)))
+              DNS(rd=1, qd=DNSQR(qname=domain)))
     if len(ans) != 0:
+        if ans[DNS].rcode != 0:
+            return {
+                "protocol": "dns",
+                "state": False,
+                "msg": "DNS Error",
+                "rcode": str(ans[DNS].rcode)
+            }
+
         for x in range(ans[DNS].ancount):
             if ans[DNSRR][x].type == 1:
                 return {
