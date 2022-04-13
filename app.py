@@ -4,6 +4,7 @@ from flask import Flask, jsonify
 
 import MPing.ICMPing
 import MPing.TCPing
+import MDns.DnsQuery
 
 app = Flask(__name__)
 wsgi_app = app.wsgi_app
@@ -13,6 +14,10 @@ wsgi_app = app.wsgi_app
 def hello_world():
     return "<p>Welcome to Eris!</p>"
 
+
+@app.route('/dns/<name>')
+def DNSQuery(name):
+    return jsonify(MDns.DnsQuery.Query(name))
 
 @app.route('/ping/icmp/<ip>')
 def ICMPing(ip):
