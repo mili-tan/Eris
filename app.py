@@ -6,6 +6,8 @@ import MPing.ICMPing
 import MPing.TCPing
 import MDns.DnsQuery
 import MDns.DnsSpoofCheck
+import MRoute.Trace
+from MRoute import Trace
 
 app = Flask(__name__)
 wsgi_app = app.wsgi_app
@@ -24,6 +26,11 @@ def DNSQuery(name):
 @app.route('/dns/check/<name>')
 def DNSCheck(name):
     return jsonify(MDns.DnsSpoofCheck.Check(name))
+
+
+@app.route('/route/trace/<ip>')
+def RouteTrace(ip):
+    return jsonify(MRoute.Trace.Trace(ip))
 
 
 @app.route('/ping/icmp/<ip>')
