@@ -20,9 +20,11 @@ def hello_world():
 def DNSQuery(name):
     return jsonify(MDns.DnsQuery.Query(name))
 
+
 @app.route('/dns/check/<name>')
 def DNSCheck(name):
     return jsonify(MDns.DnsSpoofCheck.Check(name))
+
 
 @app.route('/ping/icmp/<ip>')
 def ICMPing(ip):
