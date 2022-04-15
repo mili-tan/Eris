@@ -38,11 +38,12 @@ put_table(table)
 
 geo = Geo()
 geo.add_schema(maptype="world")
+
 for l in loc:
     geo.add_coordinate(l[0], l[1], l[2])
     print(l[0], l[1], l[2])
 
-line = [(loc[x-1][0], loc[x][0]) for x in range(len(loc))]
+line = [(loc[x - 1][0], loc[x][0]) for x in range(len(loc))]
 line.pop(0)
 
 c = (
@@ -61,8 +62,8 @@ c = (
         ),
         linestyle_opts=opts.LineStyleOpts(curve=0.2),
     )
-        .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
-        .set_global_opts(title_opts=opts.TitleOpts(title="Geo-TraceRoute"))
+    .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
+    .set_global_opts(title_opts=opts.TitleOpts(title="Geo-TraceRoute"))
 )
 
 c.width = "100%"
