@@ -15,7 +15,7 @@ def Trace(ip: object):
             "protocol": "Trace-ICMP",
             "state": True,
             "msg": "OK",
-            "ip":res
+            "ip": res
         }
     else:
         return {
