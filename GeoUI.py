@@ -1,10 +1,9 @@
-from pywebio import start_server
-from pywebio.input import *
-from pywebio.output import *
+import geoip2.database
 from pyecharts import options as opts
 from pyecharts.charts import Geo
 from pyecharts.globals import ChartType, SymbolType
-import geoip2.database
+from pywebio.input import *
+from pywebio.output import *
 
 import MRoute.Trace
 
@@ -13,7 +12,7 @@ asnReader = geoip2.database.Reader('GeoLite2-ASN.mmdb')
 
 text = input("请输入目标 IP 地址：")
 trace = MRoute.Trace.Trace(text)
-table = [["IP", "国家", "省", "市", "ASN", "ISP"]]
+table = [["IP", "地理位置", "", "", "ASN", "ISP"]]
 loc = []
 for x in trace["ip"]:
     try:
@@ -53,7 +52,7 @@ c = (
         type_=ChartType.EFFECT_SCATTER,
         color="red",
     )
-    .add(
+        .add(
         str(text),
         line,
         type_=ChartType.LINES,
@@ -62,8 +61,8 @@ c = (
         ),
         linestyle_opts=opts.LineStyleOpts(curve=0.2),
     )
-    .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
-    .set_global_opts(title_opts=opts.TitleOpts(title="Geo-TraceRoute"))
+        .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
+        .set_global_opts(title_opts=opts.TitleOpts(title="Geo-TraceRoute"))
 )
 
 c.width = "100%"
