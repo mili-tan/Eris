@@ -6,6 +6,7 @@ import MDns.DnsQuery
 import MDns.DnsSpoofCheck
 import MPing.ICMPing
 import MPing.TCPing
+import MRoute.TCPTrace
 import MRoute.Trace
 
 app = Flask(__name__)
@@ -30,6 +31,11 @@ def DNSCheck(name):
 @app.route('/route/trace/<ip>')
 def RouteTrace(ip):
     return jsonify(MRoute.Trace.Trace(ip))
+
+
+@app.route('/route/trace/<ip>/<port>')
+def TCPRouteTrace(ip, port):
+    return jsonify(MRoute.TCPTrace.Trace(ip, int(port)))
 
 
 @app.route('/ping/icmp/<ip>')
