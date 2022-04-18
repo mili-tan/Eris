@@ -2,12 +2,11 @@ import os
 
 from flask import Flask, jsonify
 
-import MPing.ICMPing
-import MPing.TCPing
 import MDns.DnsQuery
 import MDns.DnsSpoofCheck
+import MPing.ICMPing
+import MPing.TCPing
 import MRoute.Trace
-from MRoute import Trace
 
 app = Flask(__name__)
 wsgi_app = app.wsgi_app

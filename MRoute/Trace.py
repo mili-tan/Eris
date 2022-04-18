@@ -2,7 +2,7 @@ from scapy.layers.inet import *
 
 
 def Trace(ip: object):
-    ans, unans = sr(IP(dst=ip, ttl=(1, 30)) / ICMP(), timeout=1)
+    ans, unans = sr(IP(dst=ip, ttl=(1, 30)) / ICMP(), timeout=3)
     res = []
     for i in ans[IP]:
         res.append(i.answer.src)
