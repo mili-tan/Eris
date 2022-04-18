@@ -10,8 +10,6 @@ import MRoute.TCPTrace
 import MRoute.Trace
 
 app = Flask(__name__)
-wsgi_app = app.wsgi_app
-
 
 @app.route("/")
 def hello_world():
