@@ -1,6 +1,7 @@
 import os
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, json
+from werkzeug.exceptions import HTTPException
 
 import MDns.DnsQuery
 import MDns.DnsSpoofCheck
@@ -44,6 +45,18 @@ def ICMPing(ip):
 @app.route('/ping/tcp/<ip>/<port>')
 def TCPing(ip, port):
     return jsonify(MPing.TCPing.Ping(ip, int(port)))
+
+
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    response = e.get_response()
+    response.data = json.dumps({
+        "code": e.code,
+        "name": e.name,
+        "description": e.description,
+    })
+    response.content_type = "application/json"
+    return response
 
 
 if __name__ == '__main__':
