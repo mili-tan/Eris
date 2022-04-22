@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask, jsonify, json
+from pywebio.platform.flask import webio_view
 from werkzeug.exceptions import HTTPException
 
 import MDns.DnsQuery
@@ -9,8 +10,13 @@ import MPing.ICMPing
 import MPing.TCPing
 import MRoute.TCPTrace
 import MRoute.Trace
+import TraceUI
 
 app = Flask(__name__)
+
+app.add_url_rule('/x/trace', 'webio_view', webio_view(TraceUI.index),
+                 methods=['GET', 'POST', 'OPTIONS'])
+
 
 @app.route("/")
 def hello_world():
@@ -66,4 +72,5 @@ if __name__ == '__main__':
         PORT = int(os.environ.get('SERVER_PORT', '2025'))
     except ValueError:
         PORT = 2025
+
     app.run(HOST, PORT)
