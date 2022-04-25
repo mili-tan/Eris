@@ -16,13 +16,13 @@ import TraceUI
 
 app = Flask(__name__)
 
-app.add_url_rule('/x/trace', 'webio_view', webio_view(TraceUI.index),
+app.add_url_rule('/x/trace', 'trace', webio_view(TraceUI.index),
                  methods=['GET', 'POST', 'OPTIONS'])
 
-app.add_url_rule('/x/tcping', 'webio_view', webio_view(PingUI.tcp),
+app.add_url_rule('/x/tcping', 'tcping', webio_view(PingUI.tcp),
                  methods=['GET', 'POST', 'OPTIONS'])
 
-app.add_url_rule('/x/icmping', 'webio_view', webio_view(PingUI.icmp),
+app.add_url_rule('/x/icmping', 'icmping', webio_view(PingUI.icmp),
                  methods=['GET', 'POST', 'OPTIONS'])
 
 
