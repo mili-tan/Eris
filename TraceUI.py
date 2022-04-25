@@ -9,7 +9,7 @@ import flag
 import MRoute.TCPTrace
 
 
-def index():
+def tcp():
     """TraceUI | Eris"""
 
     clear()
@@ -87,3 +87,51 @@ def index():
 
             c.width = "100%"
             put_html(c.render_notebook())
+
+def icmp():
+    """PingUI | Eris"""
+
+    clear()
+
+    put_html("""<nav class="navbar navbar-light bg-light mb-3">
+    <a class="navbar-brand" href="#">Eris</a>
+    </nav>""")
+
+    while True:
+        target = input_group('可视化 Ping（ICMP）', [
+            input("目标 IP：", name="ip"),
+            input("请求包数量：", name="pkg", type=NUMBER, value="4")
+        ])
+        clear("res")
+
+        with use_scope('res'):
+            toast("正在进行Ping……")
+            pings = {}
+
+            for x in range(0, target["pkg"]):
+                pings[datetime.datetime.now().strftime("%H:%M:%S.%f")] = MPing.ICMPing.Ping(target["ip"])
+
+            toast("Ping(ICMP) 完成！", color="success")
+
+            line1 = (
+                Line()
+                    .add_xaxis([x for x in pings.keys()])
+                    .add_yaxis(target["ip"],
+                               [x["latency"] for x in pings.values()],
+                               xaxis_index=0,
+                               # color='#C23531',
+                               color='#D770AD',
+                               # is_symbol_show=False,
+                               is_connect_nones=True
+                               )
+                    # .add_yaxis('2016',
+                    #            [12, 16, 20, 22, 26, 30, 35, 39, 40, 53, 68],
+                    #            xaxis_index=0,
+                    #            # color='#2F4554',
+                    #            color='#8CC152',
+                    #            is_symbol_show=False,
+                    #            is_connect_nones=True)
+                    .set_global_opts(title_opts=opts.TitleOpts(title="Ping"))
+            )
+
+            put_html(line1.render_notebook())

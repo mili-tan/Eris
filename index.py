@@ -10,11 +10,19 @@ import MPing.ICMPing
 import MPing.TCPing
 import MRoute.TCPTrace
 import MRoute.Trace
+
+import PingUI
 import TraceUI
 
 app = Flask(__name__)
 
 app.add_url_rule('/x/trace', 'webio_view', webio_view(TraceUI.index),
+                 methods=['GET', 'POST', 'OPTIONS'])
+
+app.add_url_rule('/x/tcping', 'webio_view', webio_view(PingUI.tcp),
+                 methods=['GET', 'POST', 'OPTIONS'])
+
+app.add_url_rule('/x/icmping', 'webio_view', webio_view(PingUI.icmp),
                  methods=['GET', 'POST', 'OPTIONS'])
 
 
