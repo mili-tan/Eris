@@ -20,8 +20,8 @@ put_html("""<nav class="navbar navbar-light bg-light mb-3">
 while True:
     target = input_group('可视化 Ping（TCP）', [
         input("目标 IP：", name="ip"),
-        input("目标端口：", name="port", type=NUMBER),
-        input("请求包数量：", name="pkg", type=NUMBER)
+        input("目标端口：", name="port", type=NUMBER, value="80"),
+        input("请求包数量：", name="pkg", type=NUMBER, value="4")
     ])
     clear("res")
 
