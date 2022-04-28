@@ -15,7 +15,8 @@ def Ping(ip, port):
                 "state": False,
                 "latency": int(delta * 1000),
                 "msg": "Incorrect IP",
-                "ip": str(rx.src)
+                "ip": str(rx.src),
+                "ttl": int(rx.ttl)
             }
         else:
             return {
@@ -23,7 +24,8 @@ def Ping(ip, port):
                 "state": True,
                 "latency": int(delta * 1000),
                 "msg": "OK",
-                "ip": str(rx.src)
+                "ip": str(rx.src),
+                "ttl": int(rx.ttl)
             }
     else:
         # print("timeout")
@@ -32,5 +34,6 @@ def Ping(ip, port):
             "state": True,
             "latency": 0,
             "msg": "Timeout",
-            "ip": ip
+            "ip": ip,
+            "ttl": 0
         }
