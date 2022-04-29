@@ -7,9 +7,6 @@ def Ping(ip: object):
     if len(ans) != 0:
         rx = ans[0][1]
         tx = ans[0][0]
-
-        # print(ans[ICMP][0])
-
         delta = rx.time - tx.sent_time
         # ans.summary(lambda s, r: r.sprintf("%IP.src% is alive:" + str(delta * 1000)))
         if rx.src != ip:
@@ -17,7 +14,7 @@ def Ping(ip: object):
                 "protocol": "ICMP",
                 "state": False,
                 "latency": int(delta * 1000),
-                "msg": "Incorrect IP",
+                "msg": "Incorrect",
                 "ip": str(rx.src),
                 "ttl": int(rx.ttl)
             }
@@ -34,7 +31,7 @@ def Ping(ip: object):
         # print("timeout")
         return {
             "protocol": "ICMP",
-            "state": True,
+            "state": False,
             "latency": 0,
             "msg": "Timeout",
             "ip": ip,

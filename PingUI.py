@@ -1,6 +1,8 @@
 import datetime
 import time
 
+import flag
+import geoip2
 from pyecharts import options as opts
 from pyecharts.charts import Line
 from pywebio.input import *
@@ -14,10 +16,10 @@ def tcp():
     """TCPing | Eris"""
 
     clear()
+    cityReader = geoip2.database.Reader('dbip-city-lite.mmdb')
+    asnReader = geoip2.database.Reader('dbip-asn-lite.mmdb')
 
-    put_html("""<nav class="navbar navbar-light bg-light mb-3">
-    <a class="navbar-brand" href="#">Eris</a>
-    </nav>""")
+    put_html(open("nav.html", "r").read())
 
     while True:
         target = input_group('可视化 Ping（TCP）', [
@@ -30,12 +32,32 @@ def tcp():
         with use_scope('res'):
             toast("正在进行Ping……")
             pings = {}
+            table = [["IP", "延迟", "TTL", "状态", "位置", "ISP", "时间"]]
 
             for x in range(0, target["pkg"]):
-                pings[datetime.datetime.now().strftime("%H:%M:%S.%f")] = MPing.TCPing.Ping(target["ip"], target["port"])
+                ping = MPing.TCPing.Ping(target["ip"], target["port"])
+                pings[datetime.datetime.now().strftime("%H:%M:%S.%f")] = ping
+                try:
+                    r = cityReader.city(ping["ip"])
+                    n = asnReader.asn(ping["ip"])
+                    table.append(
+                        [ping["ip"], str(ping["latency"]) + "ms", ping["ttl"],
+                         ("✅" if ping["state"] is True else "❌") + ping["msg"],
+                         flag.flag(str.upper(r.country.iso_code)) + " " + r.country.iso_code,
+                         "AS" + str(n.autonomous_system_number) + " " + n.autonomous_system_organization,
+                         datetime.datetime.now().strftime("%H:%M:%S.%f")])
+                except geoip2.errors.AddressNotFoundError:
+                    table.append(
+                        [ping["ip"], str(ping["latency"]) + "ms", ping["ttl"],
+                         ("✅" if ping["state"] is True else "❌") + " " + ping["msg"],
+                         "🖥️ LAN",
+                         "Local Network",
+                         datetime.datetime.now().strftime("%H:%M:%S.%f")])
                 time.sleep(0.5)
 
             toast("Ping(TCP) 完成！", color="success")
+
+            put_table(table)
 
             line1 = (
                 Line()
@@ -65,10 +87,10 @@ def icmp():
     """PingICMP | Eris"""
 
     clear()
+    cityReader = geoip2.database.Reader('dbip-city-lite.mmdb')
+    asnReader = geoip2.database.Reader('dbip-asn-lite.mmdb')
 
-    put_html("""<nav class="navbar navbar-light bg-light mb-3">
-    <a class="navbar-brand" href="#">Eris</a>
-    </nav>""")
+    put_html(open("nav.html", "r").read())
 
     while True:
         target = input_group('可视化 Ping（ICMP）', [
@@ -80,11 +102,32 @@ def icmp():
         with use_scope('res'):
             toast("正在进行Ping……")
             pings = {}
+            table = [["IP", "延迟", "TTL", "状态", "位置", "ISP", "时间"]]
 
             for x in range(0, target["pkg"]):
-                pings[datetime.datetime.now().strftime("%H:%M:%S.%f")] = MPing.ICMPing.Ping(target["ip"])
+                ping = MPing.ICMPing.Ping(target["ip"])
+                pings[datetime.datetime.now().strftime("%H:%M:%S.%f")] = ping
+                try:
+                    r = cityReader.city(ping["ip"])
+                    n = asnReader.asn(ping["ip"])
+                    table.append(
+                        [ping["ip"], str(ping["latency"]) + "ms", ping["ttl"],
+                         ("✅" if ping["state"] is True else "❌") + " " + ping["msg"],
+                         flag.flag(str.upper(r.country.iso_code)) + " " + r.country.iso_code,
+                         "AS" + str(n.autonomous_system_number) + " " + n.autonomous_system_organization,
+                         datetime.datetime.now().strftime("%H:%M:%S.%f")])
+                except geoip2.errors.AddressNotFoundError:
+                    table.append(
+                        [ping["ip"], str(ping["latency"]) + "ms", ping["ttl"],
+                         ("✅" if ping["state"] is True else "❌") + " " + ping["msg"],
+                         "🖥️ LAN",
+                         "Local Network",
+                         datetime.datetime.now().strftime("%H:%M:%S.%f")])
+                time.sleep(0.5)
 
             toast("Ping(ICMP) 完成！", color="success")
+
+            put_table(table)
 
             line1 = (
                 Line()

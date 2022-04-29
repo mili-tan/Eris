@@ -16,9 +16,7 @@ def index():
     cityReader = geoip2.database.Reader('dbip-city-lite.mmdb')
     asnReader = geoip2.database.Reader('dbip-asn-lite.mmdb')
 
-    put_html("""<nav class="navbar navbar-light bg-light mb-3">
-    <a class="navbar-brand" href="#">Eris</a>
-    </nav>""")
+    put_html(open("nav.html", "r").read())
 
     while True:
 
