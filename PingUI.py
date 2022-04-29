@@ -30,7 +30,10 @@ def tcp():
         clear("res")
 
         with use_scope('res'):
-            toast("正在进行Ping……")
+            with use_scope('spin'):
+                put_html(open("spin.html", "r").read())
+                toast("正在进行Ping……")
+
             pings = {}
             table = [["IP", "延迟", "TTL", "状态", "位置", "ISP", "时间"]]
 
@@ -56,6 +59,7 @@ def tcp():
                 time.sleep(0.5)
 
             toast("Ping(TCP) 完成！", color="success")
+            clear("spin")
 
             put_table(table)
 
@@ -70,13 +74,6 @@ def tcp():
                                # is_symbol_show=False,
                                is_connect_nones=True
                                )
-                    # .add_yaxis('2016',
-                    #            [12, 16, 20, 22, 26, 30, 35, 39, 40, 53, 68],
-                    #            xaxis_index=0,
-                    #            # color='#2F4554',
-                    #            color='#8CC152',
-                    #            is_symbol_show=False,
-                    #            is_connect_nones=True)
                     .set_global_opts(title_opts=opts.TitleOpts(title="Ping"))
             )
 
@@ -100,7 +97,10 @@ def icmp():
         clear("res")
 
         with use_scope('res'):
-            toast("正在进行Ping……")
+            with use_scope('spin'):
+                put_html(open("spin.html", "r").read())
+                toast("正在进行Ping……")
+
             pings = {}
             table = [["IP", "延迟", "TTL", "状态", "位置", "ISP", "时间"]]
 
@@ -126,6 +126,7 @@ def icmp():
                 time.sleep(0.5)
 
             toast("Ping(ICMP) 完成！", color="success")
+            clear("spin")
 
             put_table(table)
 

@@ -28,7 +28,7 @@ def index():
 
         with use_scope('res'):
             toast("正在进行路由追踪……")
-            with use_scope('res'):
+            with use_scope('spin'):
                 put_html(open("spin.html", "r").read())
             trace = MRoute.TCPTrace.Trace(target["ip"], int(target["port"]))
             toast("路由追踪完成！", color="success")
