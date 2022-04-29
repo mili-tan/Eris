@@ -28,8 +28,11 @@ def index():
 
         with use_scope('res'):
             toast("正在进行路由追踪……")
+            with use_scope('res'):
+                put_html(open("spin.html", "r").read())
             trace = MRoute.TCPTrace.Trace(target["ip"], int(target["port"]))
             toast("路由追踪完成！", color="success")
+            clear("spin")
             table = [["IP", "位置", "", "", "ASN", "ISP"]]
             loc = []
             for x in trace["ip"]:
