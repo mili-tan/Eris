@@ -6,7 +6,7 @@ def Trace(ip: object):
     res = {}
     for i in ans[IP]:
         if i.answer.src != ip:
-            print(i)
+            # print(i)
             res[i.answer.src] = i.query.ttl
 
     # res = sorted(set(res), key=res.values)

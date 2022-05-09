@@ -6,7 +6,7 @@ def Trace(ip: object, port):
     res = {}
     for i in ans.get_trace()[ip]:
         if ans.get_trace()[ip][i][0] != ip:
-            print(str(i) + ":" + ans.get_trace()[ip][i][0])
+            # print(str(i) + ":" + ans.get_trace()[ip][i][0])
             res[ans.get_trace()[ip][i][0]] = i
 
     res = sorted(res.items(), key=lambda kv: (kv[1], kv[0]))
