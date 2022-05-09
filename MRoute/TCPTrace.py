@@ -3,7 +3,11 @@ from scapy.layers.inet import *
 
 
 def Trace(ip: object, port):
-    ans, unans = traceroute(ip, maxttl=30, timeout=3, l4=UDP(sport=RandShort())/DNS(qd=DNSQR(qname="www.example.com")))
+    ans, unans = sr(IP(dst=ip, ttl=(1, 10)) / TCP(dport=port, flags="S"))
+
+    for snd, rcv in ans:
+        print(snd.ttl, rcv.src, snd.sent_time, rcv.time)
+
     res = {}
     for i in ans.get_trace()[ip]:
         if ans.get_trace()[ip][i][0] != ip:
