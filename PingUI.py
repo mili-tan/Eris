@@ -37,7 +37,7 @@ def tcp():
             table = [["IP", "延迟", "TTL", "状态", "位置", "ISP", "时间"]]
 
             for x in range(0, target["pkg"]):
-                ping = MPing.Ping(target["ip"], port=target["port"]).TCPing()
+                ping = MPing.Ping(target["ip"], port=target["port"]).TCP()
                 pings[datetime.datetime.now().strftime("%H:%M:%S.%f")] = ping
                 try:
                     r = cityReader.city(ping["ip"])
@@ -104,7 +104,7 @@ def icmp():
             table = [["IP", "延迟", "TTL", "状态", "位置", "ISP", "时间"]]
 
             for x in range(0, target["pkg"]):
-                ping = MPing.Ping(target["ip"]).ICMPing()
+                ping = MPing.Ping(target["ip"]).ICMP()
                 pings[datetime.datetime.now().strftime("%H:%M:%S.%f")] = ping
                 try:
                     r = cityReader.city(ping["ip"])

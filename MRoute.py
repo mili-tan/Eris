@@ -6,7 +6,7 @@ class Trace:
         self.ip = ip
         self.port = port
 
-    def ICMPTrace(self):
+    def ICMP(self):
         ip = str(self.ip)
 
         ans, unans = sr(IP(dst=ip, ttl=(1, 30)) / ICMP(), timeout=3)
@@ -35,7 +35,7 @@ class Trace:
                 "ip": res
             }
 
-    def TCPTrace(self):
+    def TCP(self):
         ip = str(self.ip)
         port = int(self.port)
 

@@ -6,7 +6,7 @@ class Ping:
         self.ip = ip
         self.port = port
 
-    def ICMPing(self):
+    def ICMP(self):
         ip = str(self.ip)
 
         print(ip)
@@ -48,7 +48,7 @@ class Ping:
                 "ttl": 0
             }
 
-    def TCPing(self):
+    def TCP(self):
         ip = str(self.ip)
         port = int(self.port)
 

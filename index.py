@@ -4,10 +4,9 @@ from flask import Flask, jsonify, json
 from pywebio.platform.flask import webio_view
 from werkzeug.exceptions import HTTPException
 
-import MDns.DnsQuery
-import MDns.DnsSpoofCheck
 import MPing
 import MRoute
+import MDns
 
 import PingUI
 import TraceUI
@@ -31,32 +30,32 @@ def hello_world():
 
 @app.route('/dns/query/<name>')
 def DNSQuery(name):
-    return jsonify(MDns.DnsQuery.Query(name))
+    return jsonify(MDns.DNS(name).Query())
 
 
 @app.route('/dns/check/<name>')
 def DNSCheck(name):
-    return jsonify(MDns.DnsSpoofCheck.Check(name))
+    return jsonify(MDns.DNS(name).SpoofCheck())
 
 
 @app.route('/route/trace/<ip>')
 def RouteTrace(ip):
-    return jsonify(MRoute.Trace(ip).ICMPTrace())
+    return jsonify(MRoute.Trace(ip).ICMP())
 
 
 @app.route('/route/trace/<ip>/<port>')
 def TCPRouteTrace(ip, port):
-    return jsonify(MRoute.Trace(ip, port=int(port)).TCPTrace())
+    return jsonify(MRoute.Trace(ip, port=int(port)).TCP())
 
 
 @app.route('/ping/icmp/<ip>')
 def ICMPing(ip):
-    return jsonify(MPing.Ping(ip).ICMPing())
+    return jsonify(MPing.Ping(ip).ICMP())
 
 
 @app.route('/ping/tcp/<ip>/<port>')
 def TCPing(ip, port):
-    return jsonify(MPing.Ping(ip, port=int(port)).TCPing())
+    return jsonify(MPing.Ping(ip, port=int(port)).TCP())
 
 
 @app.errorhandler(HTTPException)
