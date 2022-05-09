@@ -7,8 +7,7 @@ from werkzeug.exceptions import HTTPException
 import MDns.DnsQuery
 import MDns.DnsSpoofCheck
 import MPing
-import MRoute.TCPTrace
-import MRoute.Trace
+import MRoute
 
 import PingUI
 import TraceUI
@@ -42,12 +41,12 @@ def DNSCheck(name):
 
 @app.route('/route/trace/<ip>')
 def RouteTrace(ip):
-    return jsonify(MRoute.Trace.Trace(ip))
+    return jsonify(MRoute.Trace(ip).ICMPTrace())
 
 
 @app.route('/route/trace/<ip>/<port>')
 def TCPRouteTrace(ip, port):
-    return jsonify(MRoute.TCPTrace.Trace(ip, int(port)))
+    return jsonify(MRoute.Trace(ip, port=int(port)).TCPTrace())
 
 
 @app.route('/ping/icmp/<ip>')

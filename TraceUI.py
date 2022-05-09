@@ -6,7 +6,7 @@ from pywebio.input import *
 from pywebio.output import *
 import flag
 
-import MRoute.TCPTrace
+import MRoute
 
 
 def index():
@@ -30,7 +30,7 @@ def index():
             toast("正在进行路由追踪……")
             with use_scope('spin'):
                 put_html(open("spin.html", "r").read())
-            trace = MRoute.TCPTrace.Trace(target["ip"], int(target["port"]))
+            trace = MRoute.Trace(target["ip"], port=int(target["port"])).ICMPTrace()
             toast("路由追踪完成！", color="success")
             clear("spin")
             table = [["IP", "位置", "", "", "ASN", "ISP"]]
