@@ -8,15 +8,15 @@ from pyecharts.charts import Line
 from pywebio.input import *
 from pywebio.output import *
 
-import MPing
+from MNetwork import MPing
 
 
 def tcp():
     """TCPing | Eris"""
 
     clear()
-    cityReader = geoip2.database.Reader('dbip-city-lite.mmdb')
-    asnReader = geoip2.database.Reader('dbip-asn-lite.mmdb')
+    cityReader = geoip2.database.Reader('../dbip-city-lite.mmdb')
+    asnReader = geoip2.database.Reader('../dbip-asn-lite.mmdb')
 
     put_html(open("nav.html", "r").read())
 
@@ -83,8 +83,8 @@ def icmp():
     """PingICMP | Eris"""
 
     clear()
-    cityReader = geoip2.database.Reader('dbip-city-lite.mmdb')
-    asnReader = geoip2.database.Reader('dbip-asn-lite.mmdb')
+    cityReader = geoip2.database.Reader('../dbip-city-lite.mmdb')
+    asnReader = geoip2.database.Reader('../dbip-asn-lite.mmdb')
 
     put_html(open("nav.html", "r").read())
 
