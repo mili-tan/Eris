@@ -13,8 +13,8 @@ def index():
     """TraceUI | Eris"""
 
     clear()
-    cityReader = geoip2.database.Reader('../dbip-city-lite.mmdb')
-    asnReader = geoip2.database.Reader('../dbip-asn-lite.mmdb')
+    cityReader = geoip2.database.Reader('dbip-city-lite.mmdb')
+    asnReader = geoip2.database.Reader('dbip-asn-lite.mmdb')
 
     put_html(open("nav.html", "r").read())
 

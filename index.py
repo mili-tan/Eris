@@ -6,7 +6,8 @@ from werkzeug.exceptions import HTTPException
 
 from MNetwork import MRoute, MPing, MDns
 
-from MPages import TraceUI, PingUI
+import PingUI
+import TraceUI
 
 app = Flask(__name__)
 
