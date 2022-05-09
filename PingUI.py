@@ -7,9 +7,8 @@ from pyecharts import options as opts
 from pyecharts.charts import Line
 from pywebio.input import *
 from pywebio.output import *
-import MPing.TCPing
 
-import MPing.ICMPing
+import MPing
 
 
 def tcp():
@@ -38,7 +37,7 @@ def tcp():
             table = [["IP", "延迟", "TTL", "状态", "位置", "ISP", "时间"]]
 
             for x in range(0, target["pkg"]):
-                ping = MPing.TCPing.Ping(target["ip"], target["port"])
+                ping = MPing.Ping(target["ip"], port=target["port"]).TCPing()
                 pings[datetime.datetime.now().strftime("%H:%M:%S.%f")] = ping
                 try:
                     r = cityReader.city(ping["ip"])
@@ -105,7 +104,7 @@ def icmp():
             table = [["IP", "延迟", "TTL", "状态", "位置", "ISP", "时间"]]
 
             for x in range(0, target["pkg"]):
-                ping = MPing.ICMPing.Ping(target["ip"])
+                ping = MPing.Ping(target["ip"]).ICMPing()
                 pings[datetime.datetime.now().strftime("%H:%M:%S.%f")] = ping
                 try:
                     r = cityReader.city(ping["ip"])
