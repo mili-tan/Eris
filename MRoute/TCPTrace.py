@@ -1,8 +1,9 @@
+from scapy.layers.dns import DNS, DNSQR
 from scapy.layers.inet import *
 
 
 def Trace(ip: object, port):
-    ans, unans = traceroute(ip, port, maxttl=30, timeout=3)
+    ans, unans = traceroute(ip, maxttl=30, timeout=3, l4=UDP(sport=RandShort())/DNS(qd=DNSQR(qname="www.example.com")))
     res = {}
     for i in ans.get_trace()[ip]:
         if ans.get_trace()[ip][i][0] != ip:
