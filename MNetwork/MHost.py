@@ -11,12 +11,11 @@ class Host:
             return self.host
         else:
             res = socket.getaddrinfo(self.host, None)
-            print(res)
             return res[0][4][0]
 
     def isIp(self):
         try:
             ipaddress.ip_address(self.host.strip())
             return True
-        except Exception as e:
+        except Exception:
             return False
