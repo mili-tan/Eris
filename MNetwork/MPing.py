@@ -1,9 +1,11 @@
 from scapy.layers.inet import *
 
+from MNetwork import MHost
+
 
 class Ping:
     def __init__(self, ip, *, port=80):
-        self.ip = ip
+        self.ip = MHost.Host(str(ip)).GetHost()
         self.port = port
 
     def ICMP(self):

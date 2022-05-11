@@ -4,10 +4,10 @@ from flask import Flask, jsonify, json
 from pywebio.platform.flask import webio_view
 from werkzeug.exceptions import HTTPException
 
-from MNetwork import MRoute, MPing, MDns
-
 import PingUI
 import TraceUI
+
+from MNetwork import MRoute, MPing, MDns
 
 app = Flask(__name__)
 
