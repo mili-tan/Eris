@@ -31,12 +31,12 @@ def hello_world():
 
 @app.route('/dns/query/<name>')
 def DNSQuery(name):
-    return jsonify(MDns.DNS(name).Query())
+    return jsonify(MDns.Dns(name).Query())
 
 
 @app.route('/dns/check/<name>')
 def DNSCheck(name):
-    return jsonify(MDns.DNS(name).SpoofCheck())
+    return jsonify(MDns.Dns(name).SpoofCheck())
 
 
 @app.route('/route/trace/<ip>')

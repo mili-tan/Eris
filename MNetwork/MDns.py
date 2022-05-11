@@ -2,7 +2,7 @@ from scapy.layers.dns import *
 from scapy.layers.inet import *
 
 
-class DNS:
+class Dns:
     def __init__(self, domain):
         self.domain = domain
 
