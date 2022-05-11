@@ -22,7 +22,7 @@ def tcp():
 
     while True:
         target = input_group('可视化 Ping（TCP）', [
-            input("目标 IP：", name="ip"),
+            input("目标主机：", name="ip"),
             input("目标端口：", name="port", type=NUMBER, value="80"),
             input("请求包数量：", name="pkg", type=NUMBER, value="4")
         ])
@@ -90,7 +90,7 @@ def icmp():
 
     while True:
         target = input_group('可视化 Ping（ICMP）', [
-            input("目标 IP：", name="ip"),
+            input("目标主机：", name="ip"),
             input("请求包数量：", name="pkg", type=NUMBER, value="4")
         ])
         clear("res")
