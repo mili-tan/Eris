@@ -4,6 +4,7 @@ from flask import Flask, jsonify, json
 from pywebio.platform.flask import webio_view
 from werkzeug.exceptions import HTTPException
 
+import DnsUI
 import IndexUI
 import PingUI
 import TraceUI
@@ -22,6 +23,9 @@ app.add_url_rule('/x/tcp-ping', 'tcp-ping', webio_view(PingUI.tcp),
                  methods=['GET', 'POST', 'OPTIONS'])
 
 app.add_url_rule('/x/icmp-ping', 'icmp-ping', webio_view(PingUI.icmp),
+                 methods=['GET', 'POST', 'OPTIONS'])
+
+app.add_url_rule('/x/dns', 'dns', webio_view(DnsUI.mdns),
                  methods=['GET', 'POST', 'OPTIONS'])
 
 app.add_url_rule('/', 'index', webio_view(IndexUI.index),
