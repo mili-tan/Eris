@@ -20,7 +20,7 @@ def tcp():
 
     while True:
 
-        target = input_group('可视化路由追踪（TCP）', [
+        target = input_group('可视化路由追踪（ICMP）', [
             input("目标主机：", name="ip"),
             input("目标端口：", name="port", type=NUMBER, value="80"),
         ])
