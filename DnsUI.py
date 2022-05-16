@@ -35,11 +35,11 @@ def mdns():
                 n = asnReader.asn(res["rdata"])
                 loc = flag.flag(str.upper(r.country.iso_code)) + " " + r.country.iso_code + " " + \
                       r.subdivisions.most_specific.name + " " if r.subdivisions.most_specific.name is not None else "" + \
-                      r.city.name + " "  if r.city.name is not None else ""
+                      r.city.name + " " if r.city.name is not None else ""
                 isp = "AS" + str(n.autonomous_system_number) + " / " + n.autonomous_system_organization
-                table.append([res["state"], res["rcode"], res["rdata"], res["type"], loc, isp])
+                table.append(["✅" if res["state"] is True else "❌", res["rcode"], res["rdata"], res["type"], loc, isp])
             else:
-                table.append([res["state"], res["rcode"], res["rdata"], res["type"], "", ""])
+                table.append(["✅" if res["state"] is True else "❌", res["rcode"], res["rdata"], res["type"], "", ""])
 
             toast("查询完成！", color="success")
             clear("spin")
