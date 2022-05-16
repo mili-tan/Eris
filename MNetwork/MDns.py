@@ -17,7 +17,9 @@ class Dns:
                     "protocol": "dns",
                     "state": False,
                     "msg": "DNS Error",
-                    "rcode": str(ans[DNS].rcode)
+                    "rcode": str(ans[DNS].rcode),
+                    "rdata": "",
+                    "type": ""
                 }
 
             for x in range(ans[DNS].ancount):
