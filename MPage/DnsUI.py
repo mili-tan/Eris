@@ -13,7 +13,7 @@ def mdns():
     cityReader = geoip2.database.Reader('dbip-city-lite.mmdb')
     asnReader = geoip2.database.Reader('dbip-asn-lite.mmdb')
 
-    put_html(open("nav.html", "r").read())
+    put_html(open("../nav.html", "r").read())
 
     while True:
         target = input_group('可视化 DNS Lookup', [
@@ -23,7 +23,7 @@ def mdns():
 
         with use_scope('res'):
             with use_scope('spin'):
-                put_html(open("spin.html", "r").read())
+                put_html(open("../spin.html", "r").read())
                 toast("正在进行查询……")
 
             table = [["状态", "响应代码", "返回数据", "返回类型", "地理位置", "ISP"]]

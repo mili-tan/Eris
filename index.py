@@ -4,10 +4,7 @@ from flask import Flask, jsonify, json
 from pywebio.platform.flask import webio_view
 from werkzeug.exceptions import HTTPException
 
-import DnsUI
-import IndexUI
-import PingUI
-import TraceUI
+from MPage import PingUI, IndexUI, DnsUI, TraceUI
 
 from MNetwork import MRoute, MPing, MDns
 
