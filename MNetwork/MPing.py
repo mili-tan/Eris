@@ -23,32 +23,12 @@ class Ping:
             delta = rx.time - tx.sent_time
             # ans.summary(lambda s, r: r.sprintf("%IP.src% is alive:" + str(delta * 1000)))
             if rx.src != ip:
-                return {
-                    "protocol": "ICMP",
-                    "state": False,
-                    "latency": int(delta * 1000),
-                    "msg": "Incorrect",
-                    "ip": str(rx.src),
-                    "ttl": int(rx.ttl)
-                }
+                return __getJson__("ICMP", False, int(delta * 1000), "Incorrect", ip, 0)
             else:
-                return {
-                    "protocol": "ICMP",
-                    "state": True,
-                    "latency": int(delta * 1000),
-                    "msg": "OK",
-                    "ip": str(rx.src),
-                    "ttl": int(rx.ttl)
-                }
+                return __getJson__("TCP", True, int(delta * 1000), "OK", str(rx.src), int(rx.ttl))
+
         else:
-            return {
-                "protocol": "ICMP",
-                "state": False,
-                "latency": 0,
-                "msg": "Timeout",
-                "ip": ip,
-                "ttl": 0
-            }
+            return __getJson__("ICMP", False, 0, "Timeout", ip, 0)
 
     def TCP(self):
         ip = str(self.ip)
@@ -62,29 +42,19 @@ class Ping:
             delta = rx.time - tx.sent_time
             # ans.summary(lambda s, r: r.sprintf("%IP.src% is alive:" + str(int(delta * 1000))))
             if rx.src != ip:
-                return {
-                    "protocol": "TCP",
-                    "state": False,
-                    "latency": int(delta * 1000),
-                    "msg": "Incorrect",
-                    "ip": str(rx.src),
-                    "ttl": int(rx.ttl)
-                }
+                return __getJson__("TCP", False, int(delta * 1000), "Incorrect", ip, 0)
             else:
-                return {
-                    "protocol": "TCP",
-                    "state": True,
-                    "latency": int(delta * 1000),
-                    "msg": "OK",
-                    "ip": str(rx.src),
-                    "ttl": int(rx.ttl)
-                }
+                return __getJson__("TCP", True, int(delta * 1000), "OK", str(rx.src), int(rx.ttl))
         else:
-            return {
-                "protocol": "TCP",
-                "state": False,
-                "latency": 0,
-                "msg": "Timeout",
-                "ip": ip,
-                "ttl": 0
-            }
+            return __getJson__("TCP", False, 0, "Timeout", ip, 0)
+
+
+def __getJson__(protocol, state, latency, msg, ip, ttl):
+    return {
+        "protocol": protocol,
+        "state": state,
+        "latency": latency,
+        "msg": msg,
+        "ip": ip,
+        "ttl": ttl
+    }

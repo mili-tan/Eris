@@ -23,19 +23,9 @@ class Trace:
         res = [x[0] for x in res]
 
         if len(res) != 0:
-            return {
-                "protocol": "Trace-ICMP",
-                "state": True,
-                "msg": "OK",
-                "ip": res
-            }
+            return __getJson__("Trace-ICMP", True, "OK", res)
         else:
-            return {
-                "protocol": "Trace-ICMP",
-                "state": False,
-                "msg": "Timeout",
-                "ip": res
-            }
+            return __getJson__("Trace-ICMP", False, "Timeout", res)
 
     def TCP(self):
         ip = str(self.ip)
@@ -52,16 +42,15 @@ class Trace:
         res = [x[0] for x in res]
 
         if len(res) != 0:
-            return {
-                "protocol": "Trace-TCP",
-                "state": True,
-                "msg": "OK",
-                "ip": res
-            }
+            return __getJson__("Trace-TCP", True, "OK", res)
         else:
-            return {
-                "protocol": "Trace-TCP",
-                "state": False,
-                "msg": "Timeout",
-                "ip": res
-            }
+            return __getJson__("Trace-TCP", False, "Timeout", res)
+
+
+def __getJson__(protocol, state, msg, res):
+    return {
+        "protocol": protocol,
+        "state": state,
+        "msg": msg,
+        "ip": res
+    }
