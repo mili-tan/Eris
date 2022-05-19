@@ -6,6 +6,7 @@ from pywebio.input import *
 from pywebio.output import *
 import flag
 
+import MContext
 from MNetwork import MRoute
 
 
@@ -16,7 +17,7 @@ def tcp():
     cityReader = geoip2.database.Reader('../dbip-city-lite.mmdb')
     asnReader = geoip2.database.Reader('../dbip-asn-lite.mmdb')
 
-    put_html(open("../nav.html", "r").read())
+    put_html(MContext.nav)
 
     while True:
 
@@ -29,7 +30,7 @@ def tcp():
         with use_scope('res'):
             toast("正在进行路由追踪……")
             with use_scope('spin'):
-                put_html(open("../spin.html", "r").read())
+                put_html(MContext.spin)
             trace = MRoute.Trace(target["ip"], port=int(target["port"])).ICMP()
             toast("路由追踪完成！", color="success")
             clear("spin")
@@ -96,7 +97,7 @@ def icmp():
     cityReader = geoip2.database.Reader('../dbip-city-lite.mmdb')
     asnReader = geoip2.database.Reader('../dbip-asn-lite.mmdb')
 
-    put_html(open("../nav.html", "r").read())
+    put_html(MContext.nav)
 
     while True:
 
@@ -108,7 +109,7 @@ def icmp():
         with use_scope('res'):
             toast("正在进行路由追踪……")
             with use_scope('spin'):
-                put_html(open("../spin.html", "r").read())
+                put_html(MContext.spin)
             trace = MRoute.Trace(target["ip"]).TCP()
             toast("路由追踪完成！", color="success")
             clear("spin")

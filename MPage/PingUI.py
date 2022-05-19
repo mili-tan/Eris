@@ -8,6 +8,7 @@ from pyecharts.charts import Line
 from pywebio.input import *
 from pywebio.output import *
 
+import MContext
 from MNetwork import MPing
 
 
@@ -18,7 +19,7 @@ def tcp():
     cityReader = geoip2.database.Reader('dbip-city-lite.mmdb')
     asnReader = geoip2.database.Reader('dbip-asn-lite.mmdb')
 
-    put_html(open("../nav.html", "r").read())
+    put_html(MContext.nav)
 
     while True:
         target = input_group('可视化 Ping（TCP）', [
@@ -30,7 +31,7 @@ def tcp():
 
         with use_scope('res'):
             with use_scope('spin'):
-                put_html(open("../spin.html", "r").read())
+                put_html(MContext.spin)
                 toast("正在进行Ping……")
 
             pings = {}
@@ -86,7 +87,7 @@ def icmp():
     cityReader = geoip2.database.Reader('dbip-city-lite.mmdb')
     asnReader = geoip2.database.Reader('dbip-asn-lite.mmdb')
 
-    put_html(open("../nav.html", "r").read())
+    put_html(MContext.nav)
 
     while True:
         target = input_group('可视化 Ping（ICMP）', [
@@ -97,7 +98,7 @@ def icmp():
 
         with use_scope('res'):
             with use_scope('spin'):
-                put_html(open("../spin.html", "r").read())
+                put_html(MContext.spin)
                 toast("正在进行Ping……")
 
             pings = {}
