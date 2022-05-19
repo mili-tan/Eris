@@ -9,16 +9,17 @@ from pywebio.input import *
 from pywebio.output import *
 
 import MContext
+import MGeoData
 from MNetwork import MPing
+
+cityReader = MGeoData.cityReader
+asnReader = MGeoData.asnReader
 
 
 def tcp():
     """TCPing | Eris"""
 
     clear()
-    cityReader = geoip2.database.Reader('dbip-city-lite.mmdb')
-    asnReader = geoip2.database.Reader('dbip-asn-lite.mmdb')
-
     put_html(MContext.nav)
 
     while True:
@@ -84,9 +85,6 @@ def icmp():
     """PingICMP | Eris"""
 
     clear()
-    cityReader = geoip2.database.Reader('dbip-city-lite.mmdb')
-    asnReader = geoip2.database.Reader('dbip-asn-lite.mmdb')
-
     put_html(MContext.nav)
 
     while True:

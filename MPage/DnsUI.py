@@ -1,19 +1,19 @@
 import flag
-import geoip2
 from pywebio.input import *
 from pywebio.output import *
 
 import MContext
+import MGeoData
 from MNetwork import MDns, MHost
+
+cityReader = MGeoData.cityReader
+asnReader = MGeoData.asnReader
 
 
 def mdns():
     """TCPing | Eris"""
 
     clear()
-    cityReader = geoip2.database.Reader('dbip-city-lite.mmdb')
-    asnReader = geoip2.database.Reader('dbip-asn-lite.mmdb')
-
     put_html(MContext.nav)
 
     while True:

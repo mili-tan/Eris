@@ -7,16 +7,17 @@ from pywebio.output import *
 import flag
 
 import MContext
+import MGeoData
 from MNetwork import MRoute
+
+cityReader = MGeoData.cityReader
+asnReader = MGeoData.asnReader
 
 
 def tcp():
     """TraceUI | Eris"""
 
     clear()
-    cityReader = geoip2.database.Reader('../dbip-city-lite.mmdb')
-    asnReader = geoip2.database.Reader('../dbip-asn-lite.mmdb')
-
     put_html(MContext.nav)
 
     while True:
@@ -90,12 +91,11 @@ def tcp():
             c.width = "100%"
             put_html(c.render_notebook())
 
+
 def icmp():
     """TraceUI | Eris"""
 
     clear()
-    cityReader = geoip2.database.Reader('../dbip-city-lite.mmdb')
-    asnReader = geoip2.database.Reader('../dbip-asn-lite.mmdb')
 
     put_html(MContext.nav)
 
