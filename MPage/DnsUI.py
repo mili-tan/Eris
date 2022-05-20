@@ -34,9 +34,9 @@ def mdns():
             if MHost.Host(res["rdata"]).isIp():
                 r = cityReader.city(res["rdata"])
                 n = asnReader.asn(res["rdata"])
-                loc = flag.flag(str.upper(r.country.iso_code)) + " " + r.country.iso_code + " " + \
-                      r.subdivisions.most_specific.name + " " if r.subdivisions.most_specific.name is not None else "" + \
-                      r.city.name + " " if r.city.name is not None else ""
+                loc = flag.flag(str.upper(r.country.iso_code)) + " " + r.country.iso_code + \
+                      ", " + r.subdivisions.most_specific.name if r.subdivisions.most_specific.name is not None else "" + \
+                      ", " + r.city.name + " " if r.city.name is not None else ""
                 isp = "AS" + str(n.autonomous_system_number) + " / " + n.autonomous_system_organization
                 table.append(["✅" if res["state"] is True else "❌", res["rcode"], res["rdata"], res["type"], loc, isp])
             else:
