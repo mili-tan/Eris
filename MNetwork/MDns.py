@@ -13,40 +13,14 @@ class Dns:
                   DNS(rd=1, qd=DNSQR(qname=domain)))
         if len(ans) != 0:
             if ans[DNS].rcode != 0:
-                return {
-                    "protocol": "dns",
-                    "state": False,
-                    "msg": "DNS Error",
-                    "rcode": str(ans[DNS].rcode),
-                    "rdata": "",
-                    "type": ""
-                }
-
+                return __getJson__("dns", False, "DNS Error", str(ans[DNS].rcode), "", "")
             for x in range(ans[DNS].ancount):
                 if ans[DNSRR][x].type == 1:
-                    return {
-                        "protocol": "dns",
-                        "state": True,
-                        "msg": "OK",
-                        "rcode": str(ans[DNS].rcode),
-                        "rdata": str(ans[DNSRR][0].rdata),
-                        "type": str(ans[DNSRR][0].type)
-                    }
+                    return __getJson__("dns", True, "OK", str(ans[DNS].rcode), ans[DNSRR][x].rdata, ans[DNSRR][x].type)
+            return __getJson__("dns", True, "OK", str(ans[DNS].rcode), ans[DNSRR][0].rdata, ans[DNSRR][0].type)
 
-            return {
-                "protocol": "dns",
-                "state": True,
-                "msg": "OK",
-                "rcode": str(ans[DNS].rcode),
-                "rdata": str(ans[DNSRR][0].rdata),
-                "type": str(ans[DNSRR][0].type)
-            }
         else:
-            return {
-                "protocol": "dns",
-                "state": False,
-                "msg": "Timeout"
-            }
+            return __getJson__("dns", False, "Timeout", "", "", "")
 
     def SpoofCheck(self, server="93.184.216.34", port=53):
         domain = self.domain
@@ -70,3 +44,14 @@ class Dns:
                 "spoof": False,
                 "msg": "probably not"
             }
+
+
+def __getJson__(protocol, state, msg, rcode, rdata, type):
+    return {
+        "protocol": protocol,
+        "state": state,
+        "msg": msg,
+        "rcode": rcode,
+        "rdata": rdata,
+        "type": type
+    }
