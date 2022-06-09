@@ -2,8 +2,8 @@ import flag
 from pywebio.input import *
 from pywebio.output import *
 
-import MContext
 import MGeoData
+import MContext
 from MNetwork import MDns, MHost
 
 cityReader = MGeoData.cityReader

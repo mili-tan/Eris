@@ -6,8 +6,8 @@ from pywebio.input import *
 from pywebio.output import *
 import flag
 
-import MContext
 import MGeoData
+import MContext
 from MNetwork import MRoute
 
 cityReader = MGeoData.cityReader

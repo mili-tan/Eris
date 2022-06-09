@@ -8,8 +8,8 @@ from pyecharts.charts import Line
 from pywebio.input import *
 from pywebio.output import *
 
-import MContext
 import MGeoData
+import MContext
 from MNetwork import MPing
 
 cityReader = MGeoData.cityReader
