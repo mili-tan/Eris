@@ -1,32 +1,11 @@
 import os
 
 from flask import Flask, jsonify, json
-from pywebio.platform.flask import webio_view
 from werkzeug.exceptions import HTTPException
-
-from MPage import PingUI, IndexUI, DnsUI, TraceUI
 
 from MNetwork import MRoute, MPing, MDns
 
 app = Flask(__name__)
-
-app.add_url_rule('/x/tcp-trace', 'tcp-trace', webio_view(TraceUI.tcp),
-                 methods=['GET', 'POST', 'OPTIONS'])
-
-app.add_url_rule('/x/icmp-trace', 'icmp-trace', webio_view(TraceUI.icmp),
-                 methods=['GET', 'POST', 'OPTIONS'])
-
-app.add_url_rule('/x/tcp-ping', 'tcp-ping', webio_view(PingUI.tcp),
-                 methods=['GET', 'POST', 'OPTIONS'])
-
-app.add_url_rule('/x/icmp-ping', 'icmp-ping', webio_view(PingUI.icmp),
-                 methods=['GET', 'POST', 'OPTIONS'])
-
-app.add_url_rule('/x/dns', 'dns', webio_view(DnsUI.mdns),
-                 methods=['GET', 'POST', 'OPTIONS'])
-
-app.add_url_rule('/', 'index', webio_view(IndexUI.index),
-                 methods=['GET', 'POST', 'OPTIONS'])
 
 @app.route('/dns/query/<name>')
 def DNSQuery(name):
@@ -71,7 +50,7 @@ def handle_exception(e):
 
 
 if __name__ == '__main__':
-    print('Welcome to Eris')
+    print('Welcome to Eris API')
     HOST = os.environ.get('SERVER_HOST', '0.0.0.0')
     try:
         PORT = int(os.environ.get('SERVER_PORT', '2025'))
