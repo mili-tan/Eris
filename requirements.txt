@@ -2,3 +2,4 @@ scapy~=2.4.5
 Flask~=2.1.1
 tornado~=6.1
 Werkzeug~=2.1.1
+requests~=2.27.1

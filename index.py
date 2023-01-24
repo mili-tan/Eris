@@ -1,4 +1,5 @@
 import os
+import requests
 
 from flask import Flask, jsonify, json
 from werkzeug.exceptions import HTTPException
@@ -36,6 +37,10 @@ def ICMPing(ip):
 def TCPing(ip, port):
     return jsonify(MPing.Ping(ip, port=int(port)).TCP())
 
+
+@app.route('/hello')
+def Hello():
+    return jsonify(requests.get('https://ip.mili.one/').text)
 
 @app.errorhandler(HTTPException)
 def handle_exception(e):
